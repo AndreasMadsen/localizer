@@ -28,11 +28,13 @@ var resolve = localizer({
   // order matters. in this example index.js is prioritized over index.coffee
   allowed: ['js', 'coffee', 'json', 'yaml'],
 
-  // allowd can also be a function, if that
+  // allowd can also be a function, if that is the case it will make a single
+  // basename (e.q. index or index.js) intro multiply basenames given by
+  // an array.
   allowed: function (basename) {
     // example, where fileexts are removed and replaced with '.js'
     // (e.q. index.json => index.js)
-    return [basename.split('.').pop() + '.js' /*, more basenames */];
+    return [basename.split('.').shift() + '.js' /*, more basenames */];
   }
 });
 
