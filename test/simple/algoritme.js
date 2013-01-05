@@ -1,16 +1,19 @@
 
 var test = require('tap').test;
-var localizer = require('../localizer.js');
-var api = localizer({ root: __dirname });
+var path = require('path');
+var localizer = require('../../localizer.js');
 
-var testManifest = require('./test.json');
+var resolve = localizer({
+  root: path.resolve(__dirname, '..')
+});
+var testManifest = require('./algoritme.json');
 
 function syncResolve(from, input, callback) {
   var err = null;
   var filepath = null;
 
   try {
-    filepath = api.resolve(from, input);
+    filepath = resolve(from, input);
   } catch (e) {
     err = e;
   }
@@ -19,7 +22,7 @@ function syncResolve(from, input, callback) {
 }
 
 function asyncResolve(from, input, callback) {
-  api.resolve(from, input, callback);
+  resolve(from, input, callback);
 }
 
 function responseValidation(info, t, err, filepath) {
