@@ -5,6 +5,39 @@ var api = localizer({ root: __dirname });
 
 var testManifest = require('./test.json');
 
+function syncResolve(from, input, callback) {
+  var err = null;
+  var filepath = null;
+
+  try {
+    filepath = api.resolve(from, input);
+  } catch (e) {
+    err = e;
+  }
+
+  callback(err, filepath);
+}
+
+function asyncResolve(from, input, callback) {
+  api.resolve(from, input, callback);
+}
+
+function responseValidation(info, t, err, filepath) {
+  if (info.error) {
+    t.ok(err instanceof Error, 'resolve returned an error');
+    t.equal(err.message, info.error.message);
+    t.equal(err.code, info.error.code);
+  } else {
+    t.equal(err, null);
+  }
+
+  // in case of an error, info.path is null, otherwice it is the
+  // expected filepath
+  t.equal(filepath, info.path);
+
+  t.end();
+}
+
 // the test.json file is grouped
 Object.keys(testManifest).forEach(function (groupName) {
   test(groupName, function (t) {
@@ -28,23 +61,15 @@ Object.keys(testManifest).forEach(function (groupName) {
 
       t.test(description, function (t) {
 
-        // test the async call type
-        api.resolve(info.from, info.input, function (err, filepath) {
-
-          if (info.error) {
-            t.ok(err instanceof Error, 'resolve returned an error');
-            t.equal(err.message, info.error.message);
-            t.equal(err.code, info.error.code);
-          } else {
-            t.equal(err, null);
-          }
-
-          // in case of an error, info.path is null, otherwice it is the
-          // expected filepath
-          t.equal(filepath, info.path);
-
-          t.end();
+        t.test('sync case', function (t) {
+          syncResolve(info.from, info.input, responseValidation.bind(null, info, t));
         });
+
+        t.test('async case', function (t) {
+          asyncResolve(info.from, info.input, responseValidation.bind(null, info, t));
+        });
+
+        t.end();
       });
     });
 
