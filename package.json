@@ -1,0 +1,29 @@
+{
+  "name": "localizer",
+  "description": "Localized and configureable async and sync `requre.resolve()` implementation.",
+  "version": "0.2.0",
+  "author": "Andreas Madsen <amwebdk@gmail.com>",
+  "main": "./localizer.js",
+  "scripts": {
+    "test": "tap /test/test.js"
+  },
+  "repository" : {
+    "type": "git",
+    "url": "git://github.com/AndreasMadsen/localizer.git"
+  },
+  "keywords": [
+    "module",
+    "require",
+    "resolve",
+    "filepath",
+    "node_modules"
+  ],
+  "devDependencies": {
+    "tap": "0.3.x"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": "0.8",
+    "npm": "1"
+  }
+}
