@@ -8,19 +8,47 @@
 npm install localizer
 ```
 
-## Example
-
-**Work IN Progress**
+## Documentation
 
 ```javascript
 var localizer = require('localizer');
-var api = localizer({
-  root: './nothing/below/',
-  directroy: 'modules'
+
+// localizer is a constructor function there creates a resolve function
+var resolve = localizer({
+  // default: '/'. Specify search limitation, very useful in secure module
+  // resolving. Note that all resolved filepath will not contain the root
+  // as a prefix.
+  root: '/nothing/below/',
+
+  // default: 'node_modules'. Specify the directory name where modules are
+  // stored.
+  modules: 'other_modules',
+
+  // default: ['js', 'json', 'node'] specify allowed filetypes, note that the
+  // order matters. in this example index.js is prioritized over index.coffee
+  allowed: ['js', 'coffee', 'json', 'yaml'],
+
+  // allowd can also be a function, if that
+  allowed: function (basename) {
+    // example, where fileexts are removed and replaced with '.js'
+    // (e.q. index.json => index.js)
+    return [basename.split('.').pop() + '.js' /*, more basenames */];
+  }
 });
 
-var filepath = api.resolve('/', 'module_name');
-api.resolve('/', 'module_name', function (err, filepath) {
+// The resolve function has two required arguments.
+// - The first is the directroy where the search should start,
+//   the require.resolve equivalent is __dirname.
+// - The second is the actual search query.
+//
+// It also has an optional callback, if specified the resolve algoritme will
+// be none blocking.
+
+// sync call
+var filepath = resolve('/', 'module_name');
+
+// async call
+resolve('/', 'module_name', function (err, filepath) {
 
 });
 ```
