@@ -28,8 +28,8 @@ var resolve = localizer({
   // order matters. in this example index.js is prioritized over index.coffee
   allowed: ['js', 'coffee', 'json', 'yaml'],
 
-  // allowd can also be a function, if that is the case it will make a single
-  // basename (e.q. index or index.js) intro multiply basenames given by
+  // allowed can also be a function, if that is the case it will transform a
+  // single basename (e.q. index or index.js) intro multiply basenames given by
   // an array.
   allowed: function (basename) {
     // example, where fileexts are removed and replaced with '.js'
@@ -44,7 +44,7 @@ var resolve = localizer({
 // - The second is the actual search query.
 //
 // It also has an optional callback, if specified the resolve algoritme will
-// be none blocking.
+// be performed none blocking.
 
 // sync call
 var filepath = resolve('/', 'module_name');
