@@ -38,6 +38,11 @@
     "directroy with index.json file": {
       "input": "./fixtures/json_index/",
       "path": "/fixtures/json_index/index.json"
+    },
+
+    "path starting with slash": {
+      "input": "/fixtures/index",
+      "path": "/fixtures/index/index.js"
     }
   },
 
