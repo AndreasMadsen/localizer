@@ -1,6 +1,6 @@
 #localizer
 
-> Localized and configureable async and sync `requre.resolve()` implementation.
+> Localized and configurable async and sync `requre.resolve()` implementation.
 
 ## Installation
 

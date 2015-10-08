@@ -1,6 +1,6 @@
 {
   "name": "localizer",
-  "description": "Localized and configureable async and sync `requre.resolve()` implementation.",
+  "description": "Localized and configurable async and sync `requre.resolve()` implementation.",
   "version": "0.2.4",
   "author": "Andreas Madsen <amwebdk@gmail.com>",
   "main": "./localizer.js",
